@@ -1497,7 +1497,6 @@ int CRC_from_FW, int mode)
 	else
 		return false;
 }
-/*#endif*/
 
 int himax_load_CRC_bin_file(struct i2c_client *client)
 {
