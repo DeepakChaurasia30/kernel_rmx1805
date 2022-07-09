@@ -157,6 +157,10 @@ void __sched __down_read(struct rw_semaphore *sem)
 	for (;;) {
 		if (!waiter.task)
 			break;
+		if (hung_long_and_fatal_signal_pending(tsk)) {
+			list_del(&waiter.list);
+			break;
+		}
 		schedule();
 		set_task_state(tsk, TASK_UNINTERRUPTIBLE);
 	}
@@ -216,6 +220,9 @@ int __sched __down_write_common(struct rw_semaphore *sem, int state)
 		 */
 		if (sem->count == 0)
 			break;
+		if (hung_long_and_fatal_signal_pending(tsk)) {
+			break;
+		}
 		if (signal_pending_state(state, current))
 			goto out_nolock;
 		set_task_state(tsk, state);

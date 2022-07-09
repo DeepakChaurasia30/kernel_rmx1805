@@ -9682,3 +9682,10 @@ find_first_cpu_bit(struct task_struct *p, const cpumask_t *search_cpus,
 	return i;
 }
 #endif
+
+#ifdef VENDOR_EDIT
+struct task_struct *oppo_get_cpu_task(int cpu)
+{
+	return cpu_curr(cpu);
+}
+#endif

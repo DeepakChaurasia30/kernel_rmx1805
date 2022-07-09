@@ -257,6 +257,10 @@ struct rw_semaphore __sched *rwsem_down_read_failed(struct rw_semaphore *sem)
 		set_task_state(tsk, TASK_UNINTERRUPTIBLE);
 		if (!waiter.task)
 			break;
+		if (hung_long_and_fatal_signal_pending(tsk)) {
+			list_del(&waiter.list);
+			break;
+		}
 		schedule();
 	}
 
@@ -520,6 +524,10 @@ __rwsem_down_write_failed_common(struct rw_semaphore *sem, int state)
 
 		/* Block until there are no active lockers. */
 		do {
+			if (hung_long_and_fatal_signal_pending(current)) {
+				raw_spin_lock_irq(&sem->wait_lock);
+				goto out;
+			}
 			if (signal_pending_state(state, current))
 				goto out_nolock;
 
@@ -529,6 +537,9 @@ __rwsem_down_write_failed_common(struct rw_semaphore *sem, int state)
 
 		raw_spin_lock_irq(&sem->wait_lock);
 	}
+
+out:
+
 	__set_current_state(TASK_RUNNING);
 	list_del(&waiter.list);
 	raw_spin_unlock_irq(&sem->wait_lock);
