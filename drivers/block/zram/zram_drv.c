@@ -39,7 +39,15 @@ static DEFINE_IDR(zram_index_idr);
 static DEFINE_MUTEX(zram_index_mutex);
 
 static int zram_major;
+#ifdef VENDOR_EDIT //YiXue.Ge@PSW.kernel.drv 20170703 modify for enable lz4 default
+#ifdef CONFIG_CRYPTO_LZ4
+static const char *default_compressor = "lz4";
+#else /*CONFIG_ZRAM_LZ4_COMPRESS*/
 static const char *default_compressor = "lzo";
+#endif /*CONFIG_ZRAM_LZ4_COMPRESS*/
+#else /*VENDOR_EDIT*/
+static const char *default_compressor = "lzo";
+#endif/*VENDOR_EDIT*/
 
 /*
  * We don't need to see memory allocation errors more than once every 1
@@ -1325,7 +1333,6 @@ static int zram_add(void)
 	}
 	strlcpy(zram->compressor, default_compressor, sizeof(zram->compressor));
 	zram->meta = NULL;
-
 	pr_info("Added device: %s\n", zram->disk->disk_name);
 	return device_id;
 
