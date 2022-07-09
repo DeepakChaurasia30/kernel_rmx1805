@@ -66,7 +66,11 @@
 #define DIAG_IOCTL_REGISTER_CALLBACK	37
 #define DIAG_IOCTL_HDLC_TOGGLE	38
 #define DIAG_IOCTL_QUERY_PD_LOGGING	39
-#define DIAG_IOCTL_QUERY_MD_PID	41
+//add for fix diag_mdlog kill fail,case 03877835 ,cr 2326409
+#define DIAG_IOCTL_QUERY_CON_ALL	40
+#define DIAG_IOCTL_QUERY_MD_PID		41
+//add for modem log postback
+#define DIAG_IOCTL_SET_CLEARMASK	42
 
 /* PC Tools IDs */
 #define APQ8060_TOOLS_ID	4062
