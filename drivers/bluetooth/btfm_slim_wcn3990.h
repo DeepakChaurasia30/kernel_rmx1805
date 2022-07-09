@@ -11,7 +11,6 @@
  */
 #ifndef BTFM_SLIM_WCN3990_H
 #define BTFM_SLIM_WCN3990_H
-//#ifdef CONFIG_BTFM_SLIM_WCN3990
 #include <btfm_slim.h>
 
 /* Registers Address */
@@ -137,5 +136,4 @@ extern struct btfmslim_ch wcn3990_rxport[];
 #undef SLIM_SLAVE_PORT_EN
 #define SLIM_SLAVE_PORT_EN btfm_slim_chrk_enable_port
 #endif
-//#endif /* CONFIG_BTFM_WCN3990 */
 #endif /* BTFM_SLIM_WCN3990_H */
