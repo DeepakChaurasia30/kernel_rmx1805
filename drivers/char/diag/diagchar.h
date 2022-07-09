@@ -480,12 +480,17 @@ struct diag_logging_mode_param_t {
 	int peripheral;
 } __packed;
 
+//add for fix diag_mdlog kill fail,case 03877835 ,cr 2326409
 struct diag_query_pid_t {
 	uint32_t peripheral_mask;
 	uint32_t pd_mask;
 	int pid;
 };
 
+struct diag_con_all_param_t {
+	uint32_t diag_con_all;
+	uint32_t num_peripherals;
+};
 struct diag_md_session_t {
 	int pid;
 	int peripheral_mask;
