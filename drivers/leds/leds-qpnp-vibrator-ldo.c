@@ -207,7 +207,12 @@ static enum hrtimer_restart vib_stop_timer(struct hrtimer *timer)
 					     stop_timer);
 
 	chip->state = 0;
+#ifdef VENDOR_EDIT
+	// fangpan@Swdp.shanghai 2016/10/25, fix sometimes the vibrator shake long time issue
+	queue_work(system_unbound_wq, &chip->vib_work);
+#else
 	schedule_work(&chip->vib_work);
+#endif
 	return HRTIMER_NORESTART;
 }
 
@@ -337,7 +342,12 @@ static ssize_t qpnp_vib_store_activate(struct device *dev,
 	chip->state = val;
 	pr_debug("state = %d, time = %llums\n", chip->state, chip->vib_play_ms);
 	mutex_unlock(&chip->lock);
+#ifdef VENDOR_EDIT
+	// fangpan@Swdp.shanghai 2016/10/25, fix sometimes the vibrator shake long time issue
+	queue_work(system_unbound_wq, &chip->vib_work);
+#else
 	schedule_work(&chip->vib_work);
+#endif
 
 	return count;
 }
