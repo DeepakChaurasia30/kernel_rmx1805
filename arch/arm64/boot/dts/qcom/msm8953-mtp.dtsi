@@ -16,6 +16,8 @@
 
 //#include "msm8953-camera-sensor-mtp.dtsi"
 #include "sdm450-camera-sensor-mtp-S88051AA1.dtsi"
+#include "msm8953-mdss-panels.dtsi"
+//#include "msm8937-mdss-panels.dtsi"
 
 &blsp1_uart0 {
 	status = "ok";
