@@ -740,6 +740,26 @@ KBUILD_CFLAGS	+= $(call cc-option,-ffunction-sections,)
 KBUILD_CFLAGS	+= $(call cc-option,-fdata-sections,)
 endif
 
+
+
+ifdef CONFIG_ODM_WT_EDIT
+
+#Junbo.Guo@ODM_WT.BSP.Kernel.Boot, 2019/10/22, Add for ODM_WT_EDIT
+
+$(warning *****CONFIG_ODM_WT_EDIT is defined****)
+
+KBUILD_CFLAGS +=   -DODM_WT_EDIT
+
+KBUILD_CPPFLAGS += -DODM_WT_EDIT
+
+CFLAGS_KERNEL +=   -DODM_WT_EDIT
+
+CFLAGS_MODULE +=   -DODM_WT_EDIT
+
+export ODM_WT_EDIT=yes
+
+endif
+
 ifdef CONFIG_LTO_CLANG
 lto-clang-flags	:= -flto -fvisibility=hidden
 
