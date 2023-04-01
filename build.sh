@@ -24,3 +24,12 @@ make    O=out \
         CONFIG_NO_ERROR_ON_MISMATCH=y \
         CONFIG_DEBUG_SECTION_MISMATCH=y \
         -j$(nproc --all) || exit
+
+cp out/arch/arm64/boot/Image.gz anykernel3
+
+( cd anykernel3; zip -r ../out/RMX1805_KERNEL_`date +%d\.%m\.%Y_%H`.zip . -x 'LICENSE' 'README.md' )
+
+BUILD_END=$(date +"%s")
+DIFF=$(($BUILD_END - $BUILD_START))
+echo -e "\e[1;42mBuild completed in $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds.\e[0m"
+
