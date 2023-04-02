@@ -5,16 +5,16 @@
 # begin properties
 properties() { '
 kernel.string=Deepakchaurasia
-do.devicecheck=0
+do.devicecheck=1
 do.modules=0
 do.systemless=0
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=maguro
-device.name2=toro
-device.name3=toroplus
-device.name4=tuna
-device.name5=RMX1809
+device.name1=RMX1805
+device.name2=RMX1809
+device.name3=RMX1811
+device.name4=
+device.name5=
 supported.versions=
 supported.patchlevels=
 '; } # end properties
@@ -28,7 +28,7 @@ set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
 
 
 ## boot shell variables
-block=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;
+block=/dev/block/by-name/boot;
 is_slot_device=0;
 ramdisk_compression=auto;
 patch_vbmeta_flag=auto;
@@ -105,4 +105,3 @@ write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_
 
 #write_boot; # use flash_boot to skip ramdisk repack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
 ## end vendor_boot install
-
